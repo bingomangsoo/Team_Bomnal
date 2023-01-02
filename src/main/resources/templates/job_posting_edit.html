@@ -1,0 +1,646 @@
+<!doctype html>
+<html class="no-js" lang="zxx" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+         <title>Job board HTML-5 Template </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="site.webmanifest">
+		<link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.ico">
+
+		<!-- CSS here -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/owl.carousel.min.css">
+        <link rel="stylesheet" href="/css/flaticon.css">
+        <link rel="stylesheet" href="/css/price_rangs.css">
+        <link rel="stylesheet" href="/css/slicknav.css">
+        <link rel="stylesheet" href="/css/animate.min.css">
+        <link rel="stylesheet" href="/css/magnific-popup.css">
+        <link rel="stylesheet" href="/css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="/css/themify-icons.css">
+        <link rel="stylesheet" href="/css/slick.css">
+        <link rel="stylesheet" href="/css/nice-select.css">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/my_style.css">
+        <link rel="stylesheet" href="/css/d-list.css">
+        <script>
+
+        function insert_job(data){
+            console.log(data);
+            $("#select-job").html($("#"+data.id).text());
+            var seq =  $("#"+data.id).attr('id');
+            $("#job_seq").attr("value",seq);
+            $("#search").hide();
+        }
+   </script>
+   </head>
+
+
+    <body>
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start -->
+    <header>
+        <!-- Header Start -->
+        <th:block th:replace="fragments/header :: headerFragment"></th:block>
+        <!-- Header End -->
+    </header>
+    <main>
+
+
+        <!-- Job List Area Start -->
+        <form th:action="@{/updateJobPosting}" th:object="${recruit}" method="post">
+        <div class="job-listing-area pt-120 pt-120-bottom pb-120 background-navy">
+
+            <div class="container">
+                <div class="row">
+                    <h2  class="text-bold">채용 정보</h2>
+                </div>
+                <div class="row white-board">
+                    <div class="col-xl-11 container-items">
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">채용을 진행하실 직무를 입력해주세요.</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div>
+                                <button type="button" id="select-job" class="select-region genric-btn primary-border width-full text-left btn-text" th:text="${recruit.job_name}">
+                                    대표 직무/직업을 입력해주세요.
+                                </button>
+                                <input type="text" name="company_id" style="display:none" th:value="${session.VO.company_id}">
+                                <input type="text" name="company_name" style="display:none" th:value="${session.VO.company_name}">
+                                <input type="text" name="r_seq" style="display:none" th:value="${recruit.r_seq}">
+                                <input type="text" name="r_part" id="job_seq" style="display:none" th:value="${recruit.r_part}">
+                            </div>
+                            <!-- 검색 창 -->
+                            <div style="border:1px solid rgba(0,0,0,.1); margin-top:30px; display:none" class="row" id="search" >
+                                <div class="col-12" style="float:left">
+                                    <!-- 직무 -->
+                                    <div style="display:flex" id="job-list" >
+                                        <!-- 직무 상위 카테고리 -->
+                                        <div class="d-category-list" style="width:200px; height:300px; overflow:auto">
+                                            <div class="mt-2 mb-2" style="height:284px">
+                                                <ul th:each="job : ${job_list}">
+                                                    <li clsss="d-list">
+                                                        <button class="j-list-button" type="button">
+                                                            <span th:text="${job.super_job}">경영·사무</span>
+                                                            <span id="super-job-seq" th:text="${job.super_job_seq}" style="display:none"></span>
+                                                        </button>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- 상위 카테고리 끝 -->
+
+                                        <!-- 직무 하위 카테고리 -->
+                                        <div class="detail_list" id="j_detail_list">
+                                            <button type="button" class='detail_button'>
+
+                                            </button>
+                                        </div>
+                                        <!-- 하위 카테고리 끝-->
+                                    </div>
+
+                                    <div>
+                                        <!-- 선택한 옵션 -->
+                                        <div style="border-top:1px solid rgba(0,0,0,.1); padding:20px 15px" class="select-option">
+
+                                        </div>
+                                        <!-- 옵션 끝 -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- 검색 창 끝 -->
+                        </div>
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">채용 제목을 입력해주세요.</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div>
+                                <input type="text" name="r_title" placeholder="예) 경영지원 채용" th:value="${recruit.r_title}" class="width-full border-color inner-text" >
+                            </div>
+                        </div>
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">담당 업무를 입력해주세요.</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div>
+                                <input type="text" name="r_business" placeholder="예) 어플리케이션 개발 총괄"class="width-full border-color inner-text" th:value="${recruit.r_business}">
+                            </div>
+                        </div>
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">자격 요건을 입력해주세요.</span>
+                            </div>
+                            <div>
+                                <textarea name="r_license" class="textarea-box">[[${recruit.r_license}]]</textarea>
+                            </div>
+                        </div>
+                        <div class="container-inner ">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">상세 내용을 입력해주세요</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <textarea id="summernote" name="r_detail">[[${recruit.r_detail}]]</textarea>
+                        </div>
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">지원 접수 기간</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div class="box-flex">
+                                <div class="right-margin1">
+                                    <input type="date" name="r_open_date" class="inner-text box-date" th:value="${recruit.r_open_date}">
+                                </div>
+                                <div class="input-group-icon mt-10">
+                                    <div class="form-select right-margin1" id="default-select">
+                                        <select name="r_open_hour">
+                                            <option value="0" selected>1</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                        </select>
+                                        <div class="nice-select nice-select-left-1 border-black right-margin1 select-box" tabindex="0">
+                                            <span class="current">1시</span>
+                                            <ul class="list make-scroll select-box">
+                                                <li data-value="0" class="option nice-select-left-1 font-size1 selected focus">0시</li>
+                                                <li data-value="1" class="option nice-select-left-1 font-size1">1시</li>
+                                                <li data-value="2" class="option nice-select-left-1 font-size1">2시</li>
+                                                <li data-value="3" class="option nice-select-left-1 font-size1">3시</li>
+                                                <li data-value="4" class="option nice-select-left-1 font-size1">4시</li>
+                                                <li data-value="5" class="option nice-select-left-1 font-size1">5시</li>
+                                                <li data-value="6" class="option nice-select-left-1 font-size1">6시</li>
+                                                <li data-value="7" class="option nice-select-left-1 font-size1">7시</li>
+                                                <li data-value="8" class="option nice-select-left-1 font-size1">8시</li>
+                                                <li data-value="9" class="option nice-select-left-1 font-size1">9시</li>
+                                                <li data-value="10" class="option nice-select-left-1 font-size1">10시</li>
+                                                <li data-value="11" class="option nice-select-left-1 font-size1">11시</li>
+                                                <li data-value="12" class="option nice-select-left-1 font-size1">12시</li>
+                                                <li data-value="13" class="option nice-select-left-1 font-size1">13시</li>
+                                                <li data-value="14" class="option nice-select-left-1 font-size1">14시</li>
+                                                <li data-value="15" class="option nice-select-left-1 font-size1">15시</li>
+                                                <li data-value="16" class="option nice-select-left-1 font-size1">16시</li>
+                                                <li data-value="17" class="option nice-select-left-1 font-size1">17시</li>
+                                                <li data-value="18" class="option nice-select-left-1 font-size1">18시</li>
+                                                <li data-value="19" class="option nice-select-left-1 font-size1">19시</li>
+                                                <li data-value="20" class="option nice-select-left-1 font-size1">20시</li>
+                                                <li data-value="21" class="option nice-select-left-1 font-size1">21시</li>
+                                                <li data-value="22" class="option nice-select-left-1 font-size1">22시</li>
+                                                <li data-value="23" class="option nice-select-left-1 font-size1">23시</li>
+                                                <li data-value="24" class="option nice-select-left-1 font-size1">24시</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <span class="right-margin1">~</span>
+                                <div class="right-margin1">
+                                    <input type="date" name="r_close_date" class="inner-text box-date" th:value="${recruit.r_close_date}">
+                                </div>
+                                <div class="input-group-icon mt-10">
+                                    <div class="form-select right-margin1" id="default-select">
+                                        <select name="r_close_hour">
+                                            <option value="0" selected>0</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="11">11</option>
+                                            <option value="12">12</option>
+                                            <option value="13">13</option>
+                                            <option value="14">14</option>
+                                            <option value="15">15</option>
+                                            <option value="16">16</option>
+                                            <option value="17">17</option>
+                                            <option value="18">18</option>
+                                            <option value="19">19</option>
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                        </select>
+                                        <div class="nice-select nice-select-left-1 border-black right-margin1 select-box" tabindex="0">
+                                            <span class="current">1시</span>
+                                            <ul class="list make-scroll select-box">
+                                                <li data-value="0" class="option nice-select-left-1 font-size1 selected focus">0시</li>
+                                                <li data-value="1" class="option nice-select-left-1 font-size1">1시</li>
+                                                <li data-value="2" class="option nice-select-left-1 font-size1">2시</li>
+                                                <li data-value="3" class="option nice-select-left-1 font-size1">3시</li>
+                                                <li data-value="4" class="option nice-select-left-1 font-size1">4시</li>
+                                                <li data-value="5" class="option nice-select-left-1 font-size1">5시</li>
+                                                <li data-value="6" class="option nice-select-left-1 font-size1">6시</li>
+                                                <li data-value="7" class="option nice-select-left-1 font-size1">7시</li>
+                                                <li data-value="8" class="option nice-select-left-1 font-size1">8시</li>
+                                                <li data-value="9" class="option nice-select-left-1 font-size1">9시</li>
+                                                <li data-value="10" class="option nice-select-left-1 font-size1">10시</li>
+                                                <li data-value="11" class="option nice-select-left-1 font-size1">11시</li>
+                                                <li data-value="12" class="option nice-select-left-1 font-size1">12시</li>
+                                                <li data-value="13" class="option nice-select-left-1 font-size1">13시</li>
+                                                <li data-value="14" class="option nice-select-left-1 font-size1">14시</li>
+                                                <li data-value="15" class="option nice-select-left-1 font-size1">15시</li>
+                                                <li data-value="16" class="option nice-select-left-1 font-size1">16시</li>
+                                                <li data-value="17" class="option nice-select-left-1 font-size1">17시</li>
+                                                <li data-value="18" class="option nice-select-left-1 font-size1">18시</li>
+                                                <li data-value="19" class="option nice-select-left-1 font-size1">19시</li>
+                                                <li data-value="20" class="option nice-select-left-1 font-size1">20시</li>
+                                                <li data-value="21" class="option nice-select-left-1 font-size1">21시</li>
+                                                <li data-value="22" class="option nice-select-left-1 font-size1">22시</li>
+                                                <li data-value="23" class="option nice-select-left-1 font-size1">23시</li>
+                                                <li data-value="24" class="option nice-select-left-1 font-size1">24시</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-inner">
+                            <div class="between-inner-contents manager-left">
+                                <span class="text-bold sub-title">경력여부</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div class="box-flex">
+                                <div class="career-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_career == 'new'}" name="r_career" value="new" class="box-career check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_career == 'new'}" name="r_career" value="new" class="box-career check_box_big check-for-center right-margin">
+                                        <span>신입</span>
+                                    </label>
+                                </div>
+                                <div class="career-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_career == 'car'}" name="r_career" value="car" class="box-career check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_career == 'car'}" name="r_career" value="car" class="box-career check_box_big check-for-center right-margin">
+                                        <span>경력</span>
+                                    </label>
+                                </div>
+                                <div class="career-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_career == 'irr'}" name="r_career" value="irr" class="box-career check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_career == 'irr'}" name="r_career" value="irr" class="box-career check_box_big check-for-center right-margin">
+                                        <span>경력무관</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">학력</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div class="box-flex">
+                                <div class="right-margin1">
+                                    <select name="r_academic_ability" class="select-box-size border-black border-sharp" size="3">
+                                        <option selected value="irrelevant">학력무관</option>
+                                        <option value="elementary">초등학교 졸업</option>
+                                        <option value="middle">중학교 졸업</option>
+                                        <option value="high">고등학교 졸업</option>
+                                        <option value="university">대학교 졸업</option>
+                                        <option value="graduate">대학원 졸업</option>
+                                    </select>
+                                </div>
+                                <div class="right-margin1">
+                                    <input type="text" name="r_academic_option" class="inner-text" placeholder="(선택) 기타 학력사항" th:value="${recruit.r_academic_option}">
+                                </div>
+                                <div class="right-margin1 go-down">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_academic_candidate == 'under'}" name="r_academic_candidate" value="under" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_academic_candidate == 'under'}" name="r_academic_candidate" value="under" class="check_box_big check-for-center right-margin">
+                                        <span>졸업 예정자 지원 가능</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">급여</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div class="box-flex">
+                                <div class="right-margin1">
+                                    <select name="r_salary_type" class="select-box-size border-black border-sharp" size="3">
+                                        <option value="year" selected>연봉</option>
+                                        <option value="month">월급</option>
+                                        <option value="week">주급</option>
+                                        <option value="hour">시급</option>
+                                    </select>
+                                </div>
+                                <div class="right-margin">
+                                    <input name="r_salary" type="text" class="inner-text" th:value="${recruit.r_salary}">
+                                </div>
+                                <div class="right-margin1">
+                                    <span>만원</span>
+                                </div>
+                                <div class="go-down">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_salary_bylaws == 'bylaws'}" name="r_salary_bylaws" value="bylaws" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_salary_bylaws == 'bylaws'}"  name="r_salary_bylaws" value="bylaws" class="check_box_big check-for-center right-margin">
+                                        <span>회사 내규에 따름</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-inner background-navy box-navy-contents box-flex">
+                            <div class="between-inner-contents manager-left">
+                                <span class="text-bold font-size-1rem">소정 근로 시간</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div class="between-inner-contents box-flex">
+                                <span class="related_work_time">주</span>
+                                <input type="text" maxlength="3" name="r_work_time" class="work_per_week" th:value="${recruit.r_work_time}">
+                                <span class="related_work_time">시간</span>
+                                <input type="checkbox" th:if="${recruit.r_work_time_after == '1'}" value="1" name="r_work_time_after" class="check_box_big" id="work_check" checked>
+                                <input type="checkbox" th:unless="${recruit.r_work_time_after == '1'}" value="1" name="r_work_time_after" class="check_box_big" id="work_check">
+                                <label for="work_check">
+                                    <span class="check-big-label">면접 후 결정</span>
+                                </label>
+                            </div>
+                            <div class="box-flex">
+
+                            </div>
+                        </div>
+
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">근무 형태</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div class="container-inner box-flex">
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_job_pattern == 'full'}" name="r_job_pattern" value="full" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_job_pattern == 'full'}" name="r_job_pattern" value="full" class="check_box_big check-for-center right-margin">
+                                        <span>정규직</span>
+                                    </label>
+                                </div>
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_job_pattern == 'contract'}" name="r_job_pattern" value="contract" class="check_box_big check-for-center right-margin">
+                                        <input type="checkbox" th:unless="${recruit.r_job_pattern == 'contract'}" name="r_job_pattern" value="contract" class="check_box_big check-for-center right-margin">
+                                        <span>계약직</span>
+                                    </label>
+                                </div>
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_job_pattern == 'alba'}" name="r_job_pattern" value="alba" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_job_pattern == 'alba'}" name="r_job_pattern" value="alba" class="check_box_big check-for-center right-margin">
+                                        <span>아르바이트</span>
+                                    </label>
+                                </div>
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_job_pattern == 'intern'}" name="r_job_pattern" value="intern" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_job_pattern == 'intern'}" name="r_job_pattern" value="intern" class="check_box_big check-for-center right-margin">
+                                        <span>인턴직</span>
+                                    </label>
+                                </div>
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_job_pattern == 'free'}" name="r_job_pattern" value="free" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_job_pattern == 'free'}" name="r_job_pattern" value="free" class="check_box_big check-for-center right-margin">
+                                        <span>프리랜서</span>
+                                    </label>
+                                </div>
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_job_pattern == 'part'}" name="r_job_pattern" value="part" class="check_box_big check-for-center right-margin">
+                                        <input type="checkbox" th:unless="${recruit.r_job_pattern == 'part'}" name="r_job_pattern" value="part" class="check_box_big check-for-center right-margin">
+                                        <span>파트</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-inner">
+                            <div class="between-inner-contents">
+                                <span class="text-bold sub-title">대표 근무지역</span>
+                                <span class="color-red">필수</span>
+                            </div>
+                            <div class="box-flex">
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_work_area == 'overseas'}" name="r_work_area" value="overseas" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_work_area == 'overseas'}" name="r_work_area" value="overseas" class="check_box_big check-for-center right-margin">
+                                        <span>해외지역</span>
+                                    </label>
+                                </div>
+                                <div class="work-type-items">
+                                    <label>
+                                        <input type="checkbox" th:if="${recruit.r_work_area == 'home'}" name="r_work_area" value="home" class="check_box_big check-for-center right-margin" checked>
+                                        <input type="checkbox" th:unless="${recruit.r_work_area == 'home'}" name="r_work_area" value="home" class="check_box_big check-for-center right-margin">
+                                        <span>재택근무 가능</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="">
+                                <input type="text" id="addr-box" name="r_work_addr" placeholder="주소를 입력하세요. 예) 광주광역시 동구 제봉로 92 2층 인공지능사관학교 " class=" inner-text text-map" th:value="${recruit.r_work_addr}">
+                                <button type="button" id="button-map" class="fas fa-map-marker-alt btn-map">지도위치확인</button>
+                            </div>
+                            <div id="kakao-map" class="map-size">
+
+                            </div>
+                        </div>
+
+                        <div class="container-inner">
+                            <div>
+                                <span class="text-bold">2022년 최저시급 9,160원, 주 40시간 기준 ...</span>
+                                <a href="https://minwon.moel.go.kr/minwonCms/minwonCmsMwmdView/3003.do" target="_blank" class="color-black link-underline"><span>최저임금 제도 안내</span></a>
+                            </div>
+                            <div>
+                                <input type="checkbox" checked disabled>
+                                <span>당사는 본 채용건과 관련하여 '최저임금법'을 준수합니다. 최저임금을 준수하지 않는 경우, 공고 강제 마감 및 행정 처분을 받을 수 있습니다.</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+                    <h2 class="text-bold">담당자 정보</h2>
+                </div>
+                <div class="row white-board2">
+                    <div class="col-xl-11 container-items box-flex">
+                        <div class="manager-left">
+                            <span class="text-bold">이메일 주소</span>
+                            <span class="color-red">필수</span>
+                        </div>
+                        <div  class="manager-middle">
+                            <input type="text" placeholder="이메일을 입력해주세요" name="r_manager_email" class="width-full inner-text" th:value="${recruit.r_manager_email}">
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="r_manager_email_public" value="1" class="check_box_big check-for-center">
+                                <span>공개</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="r_manager_email_public" value="0" class="check_box_big check-for-center" checked>
+                                <span>비공개</span>
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="col-xl-11 container-items box-flex">
+                        <div class="manager-left">
+                            <span class="text-bold">담당자 성함</span>
+                            <span class="color-red">필수</span>
+                        </div>
+                        <div class="manager-middle">
+                            <input type="text" placeholder="담당자 성함을 입력해주세요" name="r_manager_name" class="width-full inner-text" th:value="${recruit.r_manager_name}">
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="r_manager_name_public" value="1" class="check_box_big check-for-center">
+                                <span>공개</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="r_manager_name_public" value="0" class="check_box_big check-for-center" checked>
+                                <span>비공개</span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-xl-11 container-items box-flex">
+                        <div class="manager-left">
+                            <span class="text-bold">전화번호</span>
+                            <span class="color-red">필수</span>
+                        </div>
+                        <div class="manager-middle">
+                            <input type='tel' name='r_manager_phone_first' maxlength="3" class="box-tel" th:value="${recruit.r_manager_phone_first}"/>-
+                            <input type='tel' name='r_manager_phone_second' maxlength="4" class="box-tel" th:value="${recruit.r_manager_phone_second}"/>-
+                            <input type='tel' name='r_manager_phone_third' maxlength="4" class="box-tel" th:value="${recruit.r_manager_phone_third}"/>
+                        </div>
+                        <div>
+                            <label>
+                                <input type="checkbox" name="r_manager_phone_public" value="1" class="check_box_big check-for-center">
+                                <span>공개</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="r_manager_phone_public" value="0" class="check_box_big check-for-center" checked>
+                                <span>비공개</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xl-4">
+                    </div>
+                    <div class="col-xl-2 for-center-items box-flex">
+                        <button type="submit" class="btn head-btn1 btn-text">등록</button>
+                    </div>
+                    <div class="col-xl-2">
+                        <button type="reset" class="btn head-btn2 btn-text">취소</button>
+                    </div>
+                    <div class="col-xl-4">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        </form>
+        <!-- Job List Area End -->
+
+    </main>
+    <footer>
+        <!-- Footer Start-->
+        <th:block th:replace="fragments/footer :: footerFragment"></th:block>
+        <!-- Footer End-->
+    </footer>
+
+	<!-- JS here -->
+
+    <script src="/js/vendor/modernizr-3.5.0.min.js"></script>
+    <!-- Jquery, Popper, Bootstrap -->
+    <script src="/js/vendor/jquery-1.12.4.min.js"></script>
+    <script src="/js/popper.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- Jquery Mobile Menu -->
+    <script src="/js/jquery.slicknav.min.js"></script>
+
+    <!-- Jquery Slick , Owl-Carousel Plugins -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <script src="/js/slick.min.js"></script>
+    <script src="/js/price_rangs.js"></script>
+
+    <!-- One Page, Animated-HeadLin -->
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/animated.headline.js"></script>
+    <script src="/js/jquery.magnific-popup.js"></script>
+
+    <!-- Scrollup, nice-select, sticky -->
+    <script src="/js/jquery.scrollUp.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    <script src="/js/jquery.sticky.js"></script>
+
+    <!-- contact js -->
+    <script src="/js/contact.js"></script>
+    <script src="/js/jquery.form.js"></script>
+    <script src="/js/jquery.validate.min.js"></script>
+    <script src="/js/mail-script.js"></script>
+    <script src="/js/jquery.ajaxchimp.min.js"></script>
+
+    <!-- Jquery Plugins, main Jquery -->
+    <script src="/js/plugins.js"></script>
+    <script src="/js/main.js"></script>
+
+    <!-- 메인페이지 java script -->
+    <script src="/js/main-page.js"></script>
+
+    <!-- 서치페이지 java script -->
+<!--    <script src="/js/search.js"></script>-->
+
+    <!-- 채용공고등록 java script-->
+    <script src="/js/job-posting.js"></script>
+
+        <!-- SummerNote -->
+        <script src="/js/summernote-lite.js"></script>
+        <script src="/js/lang/summernote-ko-KR.js"></script>
+        <link rel="stylesheet" href="/css/summernote-lite.css">
+
+        <link  href="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/summernote.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.20/dist/lang/summernote-ko-KR.js"></script>
+
+    <!--카카오-->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=67d856aac506e0eb620e79b860dd428c&libraries=services,clusterer,drawing"></script>
+    <script src="/js/kakaomap.js"></script>
+
+    </body>
+</html>
