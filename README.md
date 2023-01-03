@@ -188,7 +188,7 @@ https://youtu.be/wpICG4RO5lo
     <td align="center"><b></b></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/kimpizza" target='_blank'>github</a></td>
+    <td align="center"><a href="https://github.com/qkrmekem" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/eunji78" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/100geun10000" target='_blank'>github</a></td>
     <td align="center"><a href="https://github.com/jaegangkim" target='_blank'>github</a></td>
