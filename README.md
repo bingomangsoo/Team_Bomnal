@@ -182,10 +182,10 @@ https://youtu.be/wpICG4RO5lo
   </tr>
     <tr>
     <td align="center"><b>팀장<br>메인<br>채용공고<br>채용공고수정</b></td>
-    <td align="center"><b>채용목록<br>채용상세</b></td>
-    <td align="center"><b>기업목록<br>기업상세<br>기업리뷰</b></td>
-    <td align="center"><b>이력서작성<br>직무검색<br>지역검색</b></td>
-    <td align="center"><b>마이페이지<br>로그인<br>회원가입</b></td>
+    <td align="center"><b>팀원<br>채용목록<br>채용상세</b></td>
+    <td align="center"><b>팀원<br>기업목록<br>기업상세<br>기업리뷰</b></td>
+    <td align="center"><b>팀원<br>이력서작성<br>직무검색<br>지역검색</b></td>
+    <td align="center"><b>팀원<br>마이페이지<br>로그인<br>회원가입</b></td>
   </tr>
   <tr>
     <td align="center"><a href="https://github.com/qkrmekem" target='_blank'>github</a></td>
