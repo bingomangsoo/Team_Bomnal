@@ -1,6 +1,6 @@
 # Project Bomnal
 # 🌷봄날
-![image](https://user-images.githubusercontent.com/101463273/207202384-642563a7-6797-4a38-9cc5-832b0ab0f81e.png){: width="100" height="100"}
+![image](https://user-images.githubusercontent.com/101463273/207202384-642563a7-6797-4a38-9cc5-832b0ab0f81e.png)
 
 
 ## 👽 서비스 소개
@@ -131,22 +131,18 @@
 
 ### 채용공고 등록/조회
 ![image](https://user-images.githubusercontent.com/101463273/207218963-cd52d1e8-eadd-47ee-bd68-a232a616fcea.png)
-<img src="/봄날 페이지/채용공고.png" style="width:40%; display:inline-block;">
-<img src="/봄날 페이지/채용공고상세.png" style="width:40%; display:inline-block;">
+<img src="/봄날 페이지/채용공고.png" style="width:100%;">
+<img src="/봄날 페이지/채용공고상세.png" style="width:100%">
 
 <br>
 
 ### 기업정보
-<img src="/봄날 페이지/기업리스트.png" style="width:40%; display:inline-block;">
-<img src="/봄날 페이지/기업디테일.png" style="width:40%; display:inline-block;">
-<img src="/봄날 페이지/기업리뷰.png" style="width:40%; display:inline-block;">
-<img src="/봄날 페이지/기업별채용공고.png" style="width:40%; display:inline-block;">
+<img src="/봄날 페이지/기업리스트.png" style="width:100%; display:inline-block;">
+<img src="/봄날 페이지/기업디테일.png" style="width:100%; display:inline-block;">
+<img src="/봄날 페이지/기업리뷰.png" style="width:100%; display:inline-block;">
+<img src="/봄날 페이지/기업별채용공고.png" style="width:100%; display:inline-block;">
 <br>
 
-<br>
-
-### 마이페이지
-<br>
 <br>
 
  
