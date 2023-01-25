@@ -71,9 +71,9 @@
                         <div class="button-group-area mt-10">
                             <a href=""
                                class="genric-btn primary radius">기업상세</a>
-                            <a th:href="@{/reviews/{company_id}(company_id=${detail.company_id})}"
+                            <a th:href="@{/companies/reviews/{company_id}(company_id=${detail.company_id})}"
                                class="genric-btn success-border radius">기업리뷰</a>
-                            <a th:href="@{/recruits/{company_id}(company_id=${detail.company_id})}"
+                            <a th:href="@{/companies/recruits/{company_id}(company_id=${detail.company_id})}"
                                class="genric-btn warning-border radius" th:text="'채용공고('+${countgongo}+')'">채용공고(4)</a>
                         </div>
 

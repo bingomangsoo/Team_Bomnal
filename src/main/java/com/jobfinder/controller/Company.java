@@ -72,7 +72,7 @@ public class Company {
 		return "CompanyDetail";
 	}
 
-	@GetMapping("/reviews/{company_id}")
+	@GetMapping("/companies/reviews/{company_id}")
 	public String CompanyReview(@PathVariable String company_id, Model model, HttpSession session, Reviews reviews) {
 		Company_info detail = companyService.detail(company_id);
 
@@ -122,7 +122,7 @@ public class Company {
 
 
 
-	@PostMapping("/reviews/{company_id}")
+	@PostMapping("/companies/reviews/{company_id}")
 	public String save(@ModelAttribute Reviews reviews, @PathVariable String company_id, HttpSession session){
 		System.out.println("reviews = " + reviews);
 
@@ -132,7 +132,7 @@ public class Company {
 		return "redirect:/companyReview/{company_id}";
 	}
 
-	@GetMapping("/recruits/{company_id}")
+	@GetMapping("/companies/recruits/{company_id}")
 	public String Recruit(@PathVariable String company_id, Model model){
 		Company_info detail = companyService.detail(company_id);
 		ArrayList<Recruit> gongo = companyService.gongo(company_id);

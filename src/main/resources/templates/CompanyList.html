@@ -78,7 +78,7 @@
                   <td><a th:href="@{/companies/{company_id}(company_id=${c.company_id})}" class="text-bold-500" th:text="${c.company_type}">대기업</a></td>
                 </tr>
                 <tr class="tab2">
-                  <td><a th:href="@{/reviews/{company_id}(company_id=${c.company_id})}"><small th:text="${c.reviewcount}+' 기업리뷰'">2893 기업리뷰</small></a></td>
+                  <td><a th:href="@{/companies/reviews/{company_id}(company_id=${c.company_id})}"><small th:text="${c.reviewcount}+' 기업리뷰'">2893 기업리뷰</small></a></td>
                   <td><small th:text="'평균연봉 '+${c.avgsalary}+'만원'">평균연봉 3368 만원</small></td>
                   <td th:if="${c.totalstar < 2}" th:text="'⭐ '+${c.totalstar}">⭐⭐⭐ 3.3</td>
                   <td th:if="${c.totalstar >=2 and c.totalstar <3}" th:text="'⭐⭐ '+${c.totalstar}">⭐⭐⭐ 3.3</td>
