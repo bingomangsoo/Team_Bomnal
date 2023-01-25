@@ -22,7 +22,7 @@
                                     <ul id="navigation">
                                         <li><a style="color:black;font-weight: 600!important;" th:href="@{/}">Home</a></li>
                                         <li><a style="color:black;font-weight: 600!important;" th:href="@{/noticeList}">Job Posting</a></li>
-                                        <li><a style="color:black;font-weight: 600!important;" th:href="@{/companyList}">Corporate Info</a></li>
+                                        <li><a style="color:black;font-weight: 600!important;" th:href="@{/company}">Corporate Info</a></li>
                                         <li><a style="color:black;font-weight: 600!important;" href="javascript:void(0)">Service Center</a></li>
                                         <li><a style="color:black;font-weight: 600!important;" th:if="${not #strings.isEmpty(session.VO)} and ${session.type == 'P'}" th:href="@{/ump}">My Page</a>
                                         <li><a style="color:black;font-weight: 600!important;" th:if="${not #strings.isEmpty(session.VO)} and ${session.type == 'C'}" th:href="@{/umpc}">My Page</a>

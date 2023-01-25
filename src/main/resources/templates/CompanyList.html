@@ -73,12 +73,12 @@
                 <tbody>
                 <tr class="tab1" style="border-top: 1px solid #dee2e6;">
                   <th rowspan="2" style="width:124px;"><img class="c_icon" th:src="${c.company_logo}"></th>
-                  <td><a th:href="@{/companyDetail/{company_id}(company_id=${c.company_id})}" class="text-bold-500" th:text="${c.company_name}">한국맥도날드(유)</a></td>
-                  <td><a th:href="@{/companyDetail/{company_id}(company_id=${c.company_id})}" th:text="${c.company_industry}">서비스업</a></td>
-                  <td><a th:href="@{/companyDetail/{company_id}(company_id=${c.company_id})}" class="text-bold-500" th:text="${c.company_type}">대기업</a></td>
+                  <td><a th:href="@{/company/{company_id}(company_id=${c.company_id})}" class="text-bold-500" th:text="${c.company_name}">한국맥도날드(유)</a></td>
+                  <td><a th:href="@{/company/{company_id}(company_id=${c.company_id})}" th:text="${c.company_industry}">서비스업</a></td>
+                  <td><a th:href="@{/company/{company_id}(company_id=${c.company_id})}" class="text-bold-500" th:text="${c.company_type}">대기업</a></td>
                 </tr>
                 <tr class="tab2">
-                  <td><a th:href="@{/companyReview/{company_id}(company_id=${c.company_id})}"><small th:text="${c.reviewcount}+' 기업리뷰'">2893 기업리뷰</small></a></td>
+                  <td><a th:href="@{/company/review/{company_id}(company_id=${c.company_id})}"><small th:text="${c.reviewcount}+' 기업리뷰'">2893 기업리뷰</small></a></td>
                   <td><small th:text="'평균연봉 '+${c.avgsalary}+'만원'">평균연봉 3368 만원</small></td>
                   <td th:if="${c.totalstar < 2}" th:text="'⭐ '+${c.totalstar}">⭐⭐⭐ 3.3</td>
                   <td th:if="${c.totalstar >=2 and c.totalstar <3}" th:text="'⭐⭐ '+${c.totalstar}">⭐⭐⭐ 3.3</td>
@@ -130,7 +130,7 @@
       <div class="col-lg-4">
         <div class="blog_right_sidebar">
           <aside class="single_sidebar_widget search_widget">
-            <form action="/companySearchList">
+            <form action="/company/search">
               <div class="form-group">
                 <div class="input-group mb-3">
                   <input type="text" name="keyword" class="form-control" placeholder='Search Keyword'
@@ -149,50 +149,50 @@
             <h4 class="widget_title">Category</h4>
             <ul class="list cat-list">
               <li>
-                <a th:href="@{/companyList}" class="d-flex">
+                <a th:href="@{/company}" class="d-flex">
                   전체 목록
                 </a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='서비스업')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='서비스업')}" class="d-flex">
                   서비스업
                 </a>
               </li>
               <li>
-                  <a th:href="@{/companyList/{industry_class}(industry_class='제조·화학')}">제조·화학</a>
+                  <a th:href="@{/company/industry/{industry_class}(industry_class='제조·화학')}">제조·화학</a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='의료·제약·복지')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='의료·제약·복지')}" class="d-flex">
                   <p>의료·제약·복지</p>
                 </a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='교육업')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='교육업')}" class="d-flex">
                   <p>교육업</p>
                 </a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='건설업')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='건설업')}" class="d-flex">
                   <p>건설업</p>
                 </a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='IT·웹·통신')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='IT·웹·통신')}" class="d-flex">
                   IT·웹·통신
                 </a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='미디어·디자인')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='미디어·디자인')}" class="d-flex">
                   <p>미디어·디자인</p>
                 </a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='은행·금융업')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='은행·금융업')}" class="d-flex">
                   <p>은행·금융업</p>
                 </a>
               </li>
               <li>
-                <a th:href="@{/companyList/{industry_class}(industry_class='기관·협회')}" class="d-flex">
+                <a th:href="@{/company/industry/{industry_class}(industry_class='기관·협회')}" class="d-flex">
                   <p>기관·협회</p>
                 </a>
               </li>

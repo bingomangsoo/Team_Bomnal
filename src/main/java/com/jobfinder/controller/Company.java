@@ -15,7 +15,7 @@ public class Company {
 	@Autowired
 	CompanyService companyService;
 
-	@GetMapping("/companyList")
+	@GetMapping("/company")
 	public String CompanyListMain(Criteria cri, Model model, HttpSession session){
 		ArrayList<CompanyList> list = companyService.listmain(cri);
 		int counting = companyService.countmain();
@@ -30,7 +30,7 @@ public class Company {
 		return "CompanyList";
 	}
 
-	@GetMapping("/companySearchList")
+	@GetMapping("/company/search")
 	public String CompanySearchList(@RequestParam String keyword,Criteria cri, Model model, HttpSession session){
 		cri.setKeyword(keyword);
 		ArrayList<CompanyList> list = companyService.listsearch(cri);
@@ -46,7 +46,7 @@ public class Company {
 		return "CompanyList";
 	}
 
-	@GetMapping("/companyList/{industry_class}")
+	@GetMapping("/company/industry/{industry_class}")
 	public String CompanyList(@PathVariable String industry_class, Criteria cri, Model model, HttpSession session){
 		cri.setIndustry_class(industry_class);
 		List<Company_info> list = companyService.list(cri);
@@ -63,7 +63,7 @@ public class Company {
 		return "CompanyList";
 	}
 	
-	@GetMapping("/companyDetail/{company_id}")
+	@GetMapping("/company/{company_id}")
 	public String CompanyDetail(@PathVariable String company_id, Model model) {
 		Company_info detail = companyService.detail(company_id);
 		int countgongo = companyService.countgongo(company_id);
@@ -72,7 +72,7 @@ public class Company {
 		return "CompanyDetail";
 	}
 
-	@GetMapping("/companyReview/{company_id}")
+	@GetMapping("/company/review/{company_id}")
 	public String CompanyReview(@PathVariable String company_id, Model model, HttpSession session, Reviews reviews) {
 		Company_info detail = companyService.detail(company_id);
 
@@ -98,7 +98,7 @@ public class Company {
 		return "CompanyReview";
 	}
 
-	@PostMapping("/likeinsert")
+	@PostMapping("/like")
 	@ResponseBody
 	public Review_like likeinsert(Review_like like, HttpSession session, Model model){
 		LoginVO vo = (LoginVO) session.getAttribute("VO");
@@ -108,7 +108,7 @@ public class Company {
 		return null;
 	}
 
-	@PostMapping("likedelete")
+	@DeleteMapping("/like")
 	@ResponseBody
 	public Review_like likedelete(Review_like like, HttpSession session, Model model){
 		LoginVO vo = (LoginVO) session.getAttribute("VO");
@@ -122,7 +122,7 @@ public class Company {
 
 
 
-	@PostMapping("/save/{company_id}")
+	@PostMapping("/company/review/{company_id}")
 	public String save(@ModelAttribute Reviews reviews, @PathVariable String company_id, HttpSession session){
 		System.out.println("reviews = " + reviews);
 
@@ -132,7 +132,7 @@ public class Company {
 		return "redirect:/companyReview/{company_id}";
 	}
 
-	@GetMapping("/companyRecruit/{company_id}")
+	@GetMapping("/company/recruit/{company_id}")
 	public String Recruit(@PathVariable String company_id, Model model){
 		Company_info detail = companyService.detail(company_id);
 		ArrayList<Recruit> gongo = companyService.gongo(company_id);
@@ -142,11 +142,5 @@ public class Company {
 		model.addAttribute("countgongo",countgongo);
 		return "CompanyRecruit";
 	}
-
-	@GetMapping("/a")
-	public String a(){
-		return "modal";
-	}
-
 
 }
